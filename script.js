@@ -94,9 +94,10 @@ function getPlayerPhoto(name) {
 const MOCK_DATA = {
     carousel: [{
             id: 1,
-            category: 'cs2',
-            tag: 'CS2',
-            title: 'CS2: ESL anuncia IEM Beijing 2026 com US$ 1,25 milhão',
+            category: 'Grande Familia',
+            tag: 'Grnde',
+            title: 'tuco canta, ROBERTO CARLOS no paivense',
+            image: 'src/imagens/tuco.jpg',
         },
         {
             id: 2,
@@ -288,8 +289,12 @@ const fallbacks = [
     'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
 ];
 
-MOCK_DATA.carousel.forEach((item, index) => item.image = fallbacks[index % fallbacks.length]);
-MOCK_DATA.news.forEach((item, index) => item.image = fallbacks[index % fallbacks.length]);
+MOCK_DATA.carousel.forEach((item, index) => {
+    if (!item.image) item.image = fallbacks[index % fallbacks.length];
+});
+MOCK_DATA.news.forEach((item, index) => {
+    if (!item.image) item.image = fallbacks[index % fallbacks.length];
+});
 
 
 // ELEMENTOS DO DOM
@@ -897,8 +902,10 @@ function renderVotes() {
             const hoverVal = parseInt(btn.dataset.val);
             const group = document.querySelector(`.star-group[data-pid="${pid}"]`);
             const label = document.querySelector(`.star-label[data-pid="${pid}"]`);
-            if (label) { label.textContent = STAR_LABELS[hoverVal];
-                label.style.color = '#9333ea'; }
+            if (label) {
+                label.textContent = STAR_LABELS[hoverVal];
+                label.style.color = '#9333ea';
+            }
             group.querySelectorAll('.star-btn').forEach(s => {
                 const sv = parseInt(s.dataset.val);
                 s.style.color = sv <= hoverVal ? '#c084fc' : '#3f3f46';
@@ -929,8 +936,10 @@ function renderVotes() {
             // Feedback visual imediato sem re-renderizar tudo
             const group = document.querySelector(`.star-group[data-pid="${pid}"]`);
             const label = document.querySelector(`.star-label[data-pid="${pid}"]`);
-            if (label) { label.textContent = STAR_LABELS[val];
-                label.style.color = '#9333ea'; }
+            if (label) {
+                label.textContent = STAR_LABELS[val];
+                label.style.color = '#9333ea';
+            }
             group.querySelectorAll('.star-btn').forEach(s => {
                 const sv = parseInt(s.dataset.val);
                 s.style.color = sv <= val ? '#9333ea' : '#3f3f46';
